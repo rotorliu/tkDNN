@@ -6,7 +6,7 @@ void activation_logistic(dnnType *input, dnnType *output, int size) {
     int i = blockDim.x*blockIdx.x + threadIdx.x;
 
     if(i<size) {    
-        output[i] =  1.0f/(1.0f + exp(-input[i]));;
+        output[i] =  1.0f/(1.0f + expf(-input[i]));
     }
  }
 

@@ -47,7 +47,7 @@ NetworkRT::NetworkRT(Network *net, const char *name) {
     if(!fileExist(name)) {
 #if NV_TENSORRT_MAJOR >= 6                
         // Calibrator life time needs to last until after the engine is built.
-        std::unique_ptr<IInt8EntropyCalibrator> calibrator;
+        std::unique_ptr<IInt8EntropyCalibrator2> calibrator;
 
         configRT->setAvgTimingIterations(1);
         configRT->setMinTimingIterations(1);
@@ -82,7 +82,7 @@ NetworkRT::NetworkRT(Network *net, const char *name) {
             // dtRT = DataType::kINT8;
             // builderRT->setInt8Mode(true);
             configRT->setFlag(BuilderFlag::kINT8);
-            BatchStream calibrationStream(dim, 1, 100,      //TODO: check if 100 images are sufficient to the calibration (or 4951) 
+            BatchStream calibrationStream(dim, 20, 1000,      //TODO: check if 100 images are sufficient to the calibration (or 4951) 
                                             net->fileImgList, net->fileLabelList);
             
             /* The calibTableFilePath contains the path+filename of the calibration table.

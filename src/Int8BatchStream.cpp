@@ -32,8 +32,8 @@ void BatchStream::reset(int firstBatch) {
 }
 
 bool BatchStream::next() {
-    std::cout<<"Next batch: "<<mBatchCount<<" of "<<mMaxBatches<<"\n";
-    if (mBatchCount == mMaxBatches-1)
+    std::cout<<"Next batch: "<<mBatchCount<<" of "<<mMaxBatches/mBatchSize<<"\n";
+    if (mBatchCount == mMaxBatches/mBatchSize-1)
         return false;
 
     for (int csize = 1, batchPos = 0; batchPos < mBatchSize; batchPos += csize, mFileBatchPos += csize) {
